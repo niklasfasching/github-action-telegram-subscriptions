@@ -1,0 +1,15 @@
+* look ma, no backend!
+wip wip wip
+
+I want to notify about updates from my pwa
+- periodic background sync is seriously nerfed (once every 12h for chrome)
+- web push requires showing a notification in chrome
+- web push requires a server
+- safari doesn't support web notifications (thx apple)
+
+luckily i have telegram and telegram caches messages to bots for 24h.
+as my pwa is updated via github actions i can fetch telegram messages and send notifications in github actions as well
+
+* notes
+not even sure encryption is required. i guess telegram chat ids cannot be used by anyone but the participants and cannot be correlated to the user id
+but hey, why not

@@ -1,0 +1,30 @@
+name: "telegram subscriptions"
+description: "subscribe telegram users and send notifications"
+inputs:
+  token:
+    description: "telegram bot token"
+    required: true
+  module:
+    description: "esm module exporting extendNotifier(Notifier) => Class. See index.html for interface"
+    required: false
+    default: ""
+  file:
+    description: "state file"
+    required: false
+    default: ".telegram_subscriptions"
+runs:
+  using: composite
+  steps:
+    - name: install 15+ node.js for webcrypto
+      shell: bash
+      run: |
+        sudo snap install node --channel=latest/edge --classic
+    - name: "update subscriptions and send notifications"
+      shell: bash
+      run: |
+        node ${{ github.action_path }}/index.mjs '${{ inputs.module }}' '${{ inputs.file }}' '${{ inputs.token }}'
+    - name: "persist updated state"
+      shell: bash
+      run: |
+        git add -A && git commit -m "Update telegram subscriptions" || echo "No changes to commit"
+        git push
