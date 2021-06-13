@@ -67,7 +67,7 @@ class Telegram {
   }
 
   sendMessage(chatId, text) {
-    return this.callAPI("sendMessage", {chat_id: chatId, text});
+    return this.callAPI("sendMessage", {chat_id: chatId, text, parse_mode: "HTML"});
   }
 
   async receiveUpdates(onUpdate) {
