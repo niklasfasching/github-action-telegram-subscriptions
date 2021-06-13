@@ -1,7 +1,3 @@
-export function extendNotifier(Notifier) {
-  return class extends Notifier {
-    constructor(file, token) {
-      super(file, token);
-    }
-  };
+export async function updateSubscription(chatID, subscription, telegram) {
+  telegram.sendMessage(chatID, "update");
 }

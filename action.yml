@@ -15,14 +15,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: install 15+ node.js for webcrypto
-      shell: bash
-      run: |
-        sudo snap install node --channel=latest/edge --classic
     - name: "update subscriptions and send notifications"
       shell: bash
       run: |
-        node ${{ github.action_path }}/index.mjs '${{ inputs.module }}' '${{ inputs.file }}' '${{ inputs.token }}'
+        node ${{ github.action_path }}/index.mjs '${{ inputs.file }}' '${{ inputs.token }}' '${{ inputs.module }}'
     - name: "persist updated state"
       shell: bash
       run: |
