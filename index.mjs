@@ -1,6 +1,7 @@
 import {execSync} from "child_process";
 import * as fs from "fs";
 import {request} from "https";
+import * as path from "path";
 
 // TODO: try catch each individual receive / send
 // TODO: keep state - e.g. last message send, not just config
@@ -110,7 +111,7 @@ class Telegram {
 
 async function main() {
   const [file, token, module] = process.argv.slice(2);
-  const m = await import(module);
+  const m = await import(module.match(/^https?:/) ? module : path.resolve(process.cwd(), module));
   let n = new Notifier(file, token, m);
   await n.notify();
 }
