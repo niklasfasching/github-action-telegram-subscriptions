@@ -49,13 +49,16 @@ class Notifier {
     const plaintext = execSync(`openssl enc -d -aes256 -pbkdf2 -pass env:PASSWORD -in "${this.file}"`, {
       env: {PASSWORD: this.token},
     });
+    this.plaintext = plaintext.toString();
     return JSON.parse(plaintext);
   }
 
   write(object) {
+    const plaintext = JSON.stringify(object, null, 2);
+    if (this.plaintext === plaintext) return;
     return execSync(`openssl enc -aes256 -pbkdf2 -pass env:PASSWORD -out "${this.file}"`, {
       env: {PASSWORD: this.token},
-      input: JSON.stringify(object, null, 2),
+      input: plaintext,
     });
   }
 }
